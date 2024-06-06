@@ -1,7 +1,7 @@
 from turtle import Screen
 from snake import Snake
 import time
-from audio_system import predict_mic
+from voice_control import predict_mic
 
 screen = Screen()
 screen.setup(width=600, height=600)

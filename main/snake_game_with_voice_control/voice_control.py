@@ -2,8 +2,8 @@ import numpy as np
 import tensorflow as tf
 from tensorflow.keras import models
 
-from recording_helper import record_audio, terminate
-from tf_helper import preprocess_audiobuffer
+from audio_recorder import record_audio
+from audio_precessor import preprocess_audiobuffer
 
 import warnings
 warnings.filterwarnings('ignore')
@@ -50,6 +50,3 @@ def predict_mic():
 if __name__ == "__main__":
     while True:
         command = predict_mic()
-        if command == "stop":
-            terminate()
-            break

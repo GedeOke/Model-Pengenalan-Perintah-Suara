@@ -2,8 +2,8 @@ import numpy as np
 import tensorflow as tf
 from tensorflow.keras import models
 
-from recording_helper import record_audio, terminate
-from tf_helper import preprocess_audiobuffer
+from main.snake_game_with_audio_system.audio_recorder import record_audio, terminate
+from main.snake_game_with_audio_system.audio_precessor import preprocess_audiobuffer
 
 import warnings
 warnings.filterwarnings('ignore')
@@ -11,7 +11,7 @@ warnings.filterwarnings('ignore')
 # !! Modify this in the correct order
 commands = ['down', 'left', 'no', 'right', 'up']
 
-loaded_model = models.load_model("audioModel")
+loaded_model = models.load_model("model/audioModel")
 
 # Label untuk digunakan saat tidak ada input suara
 default_label = [0.27428386, 0.22793025, 0.27963266, 0.088543914, 0.12960933]
@@ -48,10 +48,5 @@ def predict_mic():
     return command
 
 if __name__ == "__main__":
-    # from Arrow_key import control_arrow
     while True:
         command = predict_mic()
-        # control_arrow(command)
-        if command == "stop":
-            terminate()
-            break
