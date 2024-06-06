@@ -1,28 +1,70 @@
-# 🎤 Pengenalan Perintah Suara
+# 🐍 Snake Game dengan Kontrol Suara 🎤
 
-Selamat datang di proyek **Pengenalan Perintah Suara**! Proyek ini bertujuan untuk mengembangkan sistem pengenalan perintah suara yang menggunakan TensorFlow dan Keras. Sistem ini akan mendeteksi perintah dasar seperti "up", "down", "left", "right", dan "no".
+## Pendahuluan
+Selamat datang di **Snake Game dengan Kontrol Suara**! Proyek ini menggabungkan permainan snake klasik dengan sistem kontrol suara yang inovatif, memungkinkan Anda untuk mengendalikan ular menggunakan perintah suara. Proyek ini menggunakan Python, TensorFlow, dan PyAudio untuk menciptakan pengalaman bermain yang menyenangkan dan interaktif.
 
-## 🚀 Fitur Utama
+## Fitur-Fitur Unggulan
+- 🎮 **Permainan Snake Klasik**: Nikmati mekanisme permainan snake tradisional dengan grafis halus dan kontrol yang responsif.
+- 🗣️ **Kontrol Suara**: Kendalikan ular menggunakan perintah suara sederhana: "up", "down", "left", dan "right".
+- 🔊 **Pemrosesan Audio Real-Time**: Menggunakan pemrosesan audio real-time untuk menginterpretasikan perintah suara dan mengendalikan permainan.
+- 🤖 **Integrasi Pembelajaran Mesin**: Mengintegrasikan model TensorFlow yang telah dilatih untuk mengenali perintah suara dengan akurasi tinggi.
 
-- **Perekaman Audio**: Rekam audio dari mikrofon dengan mudah.
-- **Pra-pemrosesan Audio**: Konversi buffer audio menjadi spektogram siap pakai.
-- **Prediksi Real-time**: Deteksi perintah suara secara langsung dengan model terlatih.
-- **Pelatihan Model**: Latih model pengenalan suara Anda sendiri menggunakan dataset Mini Speech Commands.
+## Instalasi
 
-## 🗂️ Struktur Proyek
+1. **Kloning repositori**:
+    ```bash
+    git clone https://github.com/username/repository.git
+    cd repository
+    ```
 
-Proyek ini terdiri dari beberapa komponen utama:
+2. **Buat lingkungan virtual**:
+    ```bash
+    python -m venv venv
+    source venv/bin/activate   # Di Windows gunakan `venv\Scripts\activate`
+    ```
 
-1. **`recording_helper.py`**: Script untuk merekam audio dari mikrofon.
-2. **`tf_helper.py`**: Script untuk memproses buffer audio menjadi spektogram.
-3. **`audio_system.py`**: Script utama untuk memuat model, merekam audio, dan memprediksi perintah suara.
-4. **`audio_model.ipynb`**: Notebook Jupyter yang digunakan untuk melatih dan mengevaluasi model.
+3. **Instal dependensi yang diperlukan**:
+    ```bash
+    pip install -r requirements.txt
+    ```
 
-## 📋 Panduan Penggunaan
+4. **Unduh dan atur model TensorFlow**:
+    - Pastikan Anda memiliki model TensorFlow untuk pengenalan suara yang terletak di `model/audioModel`.
 
-### Prasyarat
+## Penggunaan
 
-Pastikan Anda telah menginstal semua ketergantungan yang diperlukan dengan menjalankan:
+1. **Jalankan permainan**:
+    ```bash
+    python main.py
+    ```
 
-```bash
-pip install -r requirements.txt
+2. **Kendalikan ular**:
+    - Gunakan perintah suara untuk menggerakkan ular.
+    - Perintah: "up", "down", "left", "right".
+
+## Struktur Proyek
+- **main.py**: Titik masuk utama untuk permainan. Menyiapkan layar permainan dan menangani loop utama permainan.
+- **snake.py**: Berisi kelas `Snake` yang mendefinisikan perilaku dan properti ular.
+- **voice_control.py**: Menangani logika kontrol suara, termasuk merekam audio, memprosesnya, dan memprediksi perintah menggunakan model TensorFlow.
+- **audio_recorder.py**: Mengelola perekaman audio menggunakan PyAudio.
+- **audio_precessor.py**: Memproses buffer audio dan mengonversinya ke dalam format yang sesuai untuk model TensorFlow.
+- **audio_model.ipynb**: Notebook Jupyter yang digunakan untuk melatih dan mengevaluasi model TensorFlow untuk pengenalan perintah suara.
+
+## Dependensi
+- Python 3.x
+- TensorFlow
+- PyAudio
+- NumPy
+
+## Kontribusi
+Kontribusi sangat diterima! Jika Anda memiliki ide atau perbaikan, jangan ragu untuk membuka isu atau mengirimkan pull request.
+
+## Lisensi
+Proyek ini dilisensikan di bawah Lisensi MIT. Lihat berkas [LICENSE](LICENSE) untuk detail lebih lanjut.
+
+## Penghargaan
+- Terinspirasi oleh permainan Snake klasik.
+- Menggunakan TensorFlow untuk pembelajaran mesin.
+- Menggunakan PyAudio untuk perekaman dan pemrosesan audio.
+
+Selamat bermain dan semoga bersenang-senang mengendalikan ular dengan suara Anda! 🎉
