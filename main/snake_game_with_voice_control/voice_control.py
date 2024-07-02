@@ -3,12 +3,12 @@ import tensorflow as tf
 from tensorflow.keras import models
 
 from audio_recorder import record_audio
-from audio_precessor import preprocess_audiobuffer
+from audio_preprocessor import preprocess_audiobuffer
 
 import warnings
 warnings.filterwarnings('ignore')
 
-# !! Modify this in the correct order
+# isi ini sesuai dengan model
 commands = ['down', 'left', 'no', 'right', 'up']
 
 loaded_model = models.load_model("model/audioModel")
@@ -50,3 +50,6 @@ def predict_mic():
 if __name__ == "__main__":
     while True:
         command = predict_mic()
+
+
+
