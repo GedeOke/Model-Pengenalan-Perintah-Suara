@@ -1,3 +1,25 @@
 data/
 txt/
 main/snake_game_with_voice_control/__pycache__
+audio_prediction.log
+DOWN_audio_prediction.
+DOWN_audio_prediction.log.txt
+LEFT_audio_prediction.log
+LEFT_audio_prediction.log.txt
+RIGHT_audio_prediction.log
+RIGHT_audio_prediction.log.txt
+UP_audio_prediction.log
+UP_audio_prediction.log.txt
+model\base_model.h5
+model\audioModel.zip
+model\audio_model.ipynb
+model\audio_model_tuning.ipynb
+model\audio_model copy.ipynb
+model\tuner
+model\audioModel
+main\snake_game_with_voice_control\__pycache__
+main\voice_control\__pycache__
+main\snake_game_with_voice_control\__pycache__
+audioModel
+.conda
+audioModel/

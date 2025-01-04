@@ -1,35 +1,47 @@
 import pyaudio
 import numpy as np
 
-FRAMES_PER_BUFFER = 3200
-FORMAT = pyaudio.paInt16
-CHANNELS = 1
-RATE = 16000
-p = pyaudio.PyAudio()
+class AudioRecorder:
+    def __init__(self, buffer_size=3200, format=pyaudio.paInt16, channels=1, rate=16000):
+        self.buffer_size = buffer_size
+        self.format = format
+        self.channels = channels
+        self.rate = rate
+        self.audio_interface = pyaudio.PyAudio()
+        self.stream = None
 
-def record_audio():
-    stream = p.open(
-        format=FORMAT,
-        channels=CHANNELS,
-        rate=RATE,
-        input=True,
-        frames_per_buffer=FRAMES_PER_BUFFER
-    )
+    def start_recording(self):
+        self.stream = self.audio_interface.open(
+            format=self.format,
+            channels=self.channels,
+            rate=self.rate,
+            input=True,
+            frames_per_buffer=self.buffer_size
+        )
 
-    frames = []
-    seconds = 1
-    for i in range(0, int(RATE / FRAMES_PER_BUFFER * seconds)):
-        data = stream.read(FRAMES_PER_BUFFER)
-        frames.append(data)
+    def stop_recording(self):
+        self.stream.stop_stream()
+        self.stream.close()
 
-    stream.stop_stream()
-    stream.close()
-    
-    return np.frombuffer(b''.join(frames), dtype=np.int16)
+    def record_audio(self, duration=1):
+        self.start_recording()
+        audio_frames = []
 
-def terminate():
-    p.terminate()
+        total_frames = int(self.rate / self.buffer_size * duration)
+        for _ in range(total_frames):
+            frame_data = self.stream.read(self.buffer_size)
+            audio_frames.append(frame_data)
 
+        self.stop_recording()
 
+        audio_data = np.frombuffer(b''.join(audio_frames), dtype=np.int16)
+        return audio_data
 
+    def terminate(self):
+        self.audio_interface.terminate()
 
+if __name__ == "__main__":
+    recorder = AudioRecorder()
+    audio_data = recorder.record_audio(duration=1)
+    print("Captured Audio Data:", audio_data)
+    recorder.terminate()

@@ -47,3 +47,10 @@ class Snake:
     def right(self):
         if self.head.heading() != self.LEFT:
             self.head.setheading(self.RIGHT)
+
+    def reset(self):
+        for segment in self.segments:
+            segment.goto(1000, 1000)  # Menggeser segmen jauh dari layar
+        self.segments.clear()
+        self.create_snake()
+        self.head = self.segments[0]

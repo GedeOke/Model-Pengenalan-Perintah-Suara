@@ -1,48 +1,38 @@
 import numpy as np
 import tensorflow as tf
-from tensorflow.keras import models
+from tensorflow.keras import models # type: ignore
 
-from audio_recorder import record_audio
-from audio_preprocessor import preprocess_audiobuffer
+from audio_precessor import preprocess_audiobuffer
+from audio_recorder import AudioRecorder
 
 import warnings
 warnings.filterwarnings('ignore')
 
-# isi ini sesuai dengan model
-commands = ['down', 'left', 'no', 'right', 'up']
-
-loaded_model = models.load_model("model/audioModel")
-
-# Label untuk digunakan saat tidak ada input suara
-default_label = [0.27428386, 0.22793025, 0.27963266, 0.088543914, 0.12960933]
-
-# Ambang batas untuk menentukan apakah input suara kosong
+commands = ['atas', 'bawah', 'kanan', 'kiri', 'tidak_dikenal']
+loaded_model = models.load_model("test.h5")
+default_label = [[0.27746227, 0.08098052, 0.043101475, 0.07737855, 0.5210772]]
 SILENCE_THRESHOLD = 4800
 
 def predict_mic():
-    audio = record_audio()
+    audio_recorder = AudioRecorder()
+    audio_data = audio_recorder.record_audio(duration=1)
     
-    # Jika input suara hening (semua nilai di bawah ambang batas)
-    if np.max(audio) < SILENCE_THRESHOLD:
+    if np.max(audio_data) < SILENCE_THRESHOLD:
         print("Tidak ada suara yang dideteksi. Mengatur label prediksi secara langsung.")
         percent = default_label
         command = commands[np.argmax(default_label)]
         return command
-    
-    spec = preprocess_audiobuffer(audio)
+    spec = preprocess_audiobuffer(audio_data)
     prediction = loaded_model(spec)
-    
-    # Mengabaikan label 'no' dalam prediksi
-    idx_no = commands.index('no')
-    prediction = tf.tensor_scatter_nd_update(prediction, [[0, idx_no]], [0.0])
-    
+    prediction = prediction.numpy()
+    idx_no = commands.index('tidak_dikenal')
+    prediction[0, idx_no] = -np.inf
     label_pred = np.argmax(prediction, axis=1)
     command = commands[label_pred[0]]
     percent = []
     for tensor in tf.nn.softmax(prediction[0]):
         value = tensor.numpy()
         percent.append(value)
-    
     print(percent)
     print("Predicted label:", command)
     return command
@@ -50,6 +40,4 @@ def predict_mic():
 if __name__ == "__main__":
     while True:
         command = predict_mic()
-
-
-
+        
