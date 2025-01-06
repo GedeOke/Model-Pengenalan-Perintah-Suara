@@ -1,7 +1,9 @@
 from turtle import Screen
 from snake import Snake
 import time
+
 from voice_control import predict_mic
+
 import os
 
 screen = Screen()

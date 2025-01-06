@@ -9,7 +9,7 @@ import warnings
 warnings.filterwarnings('ignore')
 
 commands = ['atas', 'bawah', 'kanan', 'kiri', 'tidak_dikenal']
-loaded_model = models.load_model("test.h5")
+loaded_model = models.load_model("main/voice_control/perintah_suara.h5")
 default_label = [[0.27746227, 0.08098052, 0.043101475, 0.07737855, 0.5210772]]
 SILENCE_THRESHOLD = 4800
 
@@ -40,4 +40,3 @@ def predict_mic():
 if __name__ == "__main__":
     while True:
         command = predict_mic()
-        
